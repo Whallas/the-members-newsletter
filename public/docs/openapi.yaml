@@ -1,0 +1,581 @@
+openapi: 3.0.3
+info:
+  title: Laravel
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost:8083'
+paths:
+  /api/users/create_reader:
+    post:
+      summary: 'Criar um novo usuário leitor'
+      operationId: criarUmNovoUsurioLeitor
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - 'Gerenciamento de usuários'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'O campo value não pode ser superior a 255 caracteres.'
+                  example: pgclguxtrylj
+                email:
+                  type: string
+                  description: 'O campo value deve ser um endereço de e-mail válido. O campo value não pode ser superior a 255 caracteres.'
+                  example: volkman.alberta@example.com
+                password:
+                  type: string
+                  description: 'O campo value deve ter pelo menos 8 caracteres.'
+                  example: 'jY(]Z6/W?9cAd15'
+                password_confirmation:
+                  type: string
+                  description: 'Confirmação de senha'
+                  example: soluta
+              required:
+                - name
+                - email
+                - password
+                - password_confirmation
+  /api/topics:
+    get:
+      summary: 'Ver todas as listas de interesse'
+      operationId: verTodasAsListasDeInteresse
+      description: ''
+      parameters:
+        -
+          in: query
+          name: search
+          description: 'Filtro de busca'
+          example: excepturi
+          required: false
+          schema:
+            type: string
+            description: 'Filtro de busca'
+            example: excepturi
+        -
+          in: query
+          name: page
+          description: 'Número da página'
+          example: 1
+          required: false
+          schema:
+            type: integer
+            description: 'Número da página'
+            example: 1
+        -
+          in: query
+          name: per_page
+          description: 'Itens por página'
+          example: 1
+          required: false
+          schema:
+            type: integer
+            description: 'Itens por página'
+            example: 1
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data: []
+                  links:
+                    first: 'http://localhost:8083/api/topics?page=1'
+                    last: 'http://localhost:8083/api/topics?page=1'
+                    prev: null
+                    next: null
+                  meta:
+                    current_page: 1
+                    from: null
+                    last_page: 1
+                    links:
+                      -
+                        url: null
+                        label: '&laquo; Anterior'
+                        active: false
+                      -
+                        url: 'http://localhost:8083/api/topics?page=1'
+                        label: '1'
+                        active: true
+                      -
+                        url: null
+                        label: 'Próximo &raquo;'
+                        active: false
+                    path: 'http://localhost:8083/api/topics'
+                    per_page: 1
+                    to: null
+                    total: 0
+                properties:
+                  data:
+                    type: array
+                    example: []
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                        example: 'http://localhost:8083/api/topics?page=1'
+                      last:
+                        type: string
+                        example: 'http://localhost:8083/api/topics?page=1'
+                      prev:
+                        type: string
+                        example: null
+                      next:
+                        type: string
+                        example: null
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        example: 1
+                      from:
+                        type: string
+                        example: null
+                      last_page:
+                        type: integer
+                        example: 1
+                      links:
+                        type: array
+                        example:
+                          -
+                            url: null
+                            label: '&laquo; Anterior'
+                            active: false
+                          -
+                            url: 'http://localhost:8083/api/topics?page=1'
+                            label: '1'
+                            active: true
+                          -
+                            url: null
+                            label: 'Próximo &raquo;'
+                            active: false
+                        items:
+                          type: object
+                          properties:
+                            url:
+                              type: string
+                              example: null
+                            label:
+                              type: string
+                              example: '&laquo; Anterior'
+                            active:
+                              type: boolean
+                              example: false
+                      path:
+                        type: string
+                        example: 'http://localhost:8083/api/topics'
+                      per_page:
+                        type: integer
+                        example: 1
+                      to:
+                        type: string
+                        example: null
+                      total:
+                        type: integer
+                        example: 0
+      tags:
+        - 'Listas de interesse'
+    post:
+      summary: 'Criar uma nova lista de interesse'
+      operationId: criarUmaNovaListaDeInteresse
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - 'Listas de interesse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: 'O campo value não pode ser superior a 255 caracteres.'
+                  example: zufadcxglpobqwgvk
+              required:
+                - title
+  '/api/topics/{topic_id}/subscriptions':
+    get:
+      summary: 'Obter usuários inscritos da lista'
+      operationId: obterUsuriosInscritosDaLista
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 4
+                      user_id: 2
+                      topic_id: 1
+                      created_at: '2024-04-29T05:13:48.000000Z'
+                      updated_at: '2024-04-29T05:13:48.000000Z'
+                      deleted_at: null
+                      user:
+                        id: 2
+                        email: whallas@mail.com
+                    -
+                      id: 5
+                      user_id: 3
+                      topic_id: 1
+                      created_at: '2024-04-29T05:47:09.000000Z'
+                      updated_at: '2024-04-29T05:47:09.000000Z'
+                      deleted_at: null
+                      user:
+                        id: 3
+                        email: teste@mail.com
+                    -
+                      id: 6
+                      user_id: 1
+                      topic_id: 1
+                      created_at: '2024-04-29T06:00:12.000000Z'
+                      updated_at: '2024-04-29T06:00:12.000000Z'
+                      deleted_at: null
+                      user:
+                        id: 1
+                        email: admin@mail.com
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 4
+                        user_id: 2
+                        topic_id: 1
+                        created_at: '2024-04-29T05:13:48.000000Z'
+                        updated_at: '2024-04-29T05:13:48.000000Z'
+                        deleted_at: null
+                        user:
+                          id: 2
+                          email: whallas@mail.com
+                      -
+                        id: 5
+                        user_id: 3
+                        topic_id: 1
+                        created_at: '2024-04-29T05:47:09.000000Z'
+                        updated_at: '2024-04-29T05:47:09.000000Z'
+                        deleted_at: null
+                        user:
+                          id: 3
+                          email: teste@mail.com
+                      -
+                        id: 6
+                        user_id: 1
+                        topic_id: 1
+                        created_at: '2024-04-29T06:00:12.000000Z'
+                        updated_at: '2024-04-29T06:00:12.000000Z'
+                        deleted_at: null
+                        user:
+                          id: 1
+                          email: admin@mail.com
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 4
+                        user_id:
+                          type: integer
+                          example: 2
+                        topic_id:
+                          type: integer
+                          example: 1
+                        created_at:
+                          type: string
+                          example: '2024-04-29T05:13:48.000000Z'
+                        updated_at:
+                          type: string
+                          example: '2024-04-29T05:13:48.000000Z'
+                        deleted_at:
+                          type: string
+                          example: null
+                        user:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 2
+                            email:
+                              type: string
+                              example: whallas@mail.com
+      tags:
+        - 'Listas de interesse'
+    post:
+      summary: 'Inscrever-se na lista'
+      operationId: inscreverSeNaLista
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - 'Listas de interesse'
+    parameters:
+      -
+        in: path
+        name: topic_id
+        description: 'The ID of the topic.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  '/api/topics/subscriptions/{id}':
+    delete:
+      summary: 'Cancelar inscrição'
+      operationId: cancelarInscrio
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - 'Listas de interesse'
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the subscription.'
+        example: 4
+        required: true
+        schema:
+          type: integer
+  '/api/topics/{topic_id}/messages':
+    get:
+      summary: 'Ver todas as mensagens da lista de interesse'
+      operationId: verTodasAsMensagensDaListaDeInteresse
+      description: ''
+      parameters:
+        -
+          in: query
+          name: search
+          description: 'Filtro de busca'
+          example: rem
+          required: false
+          schema:
+            type: string
+            description: 'Filtro de busca'
+            example: rem
+        -
+          in: query
+          name: page
+          description: 'Número da página'
+          example: 1
+          required: false
+          schema:
+            type: integer
+            description: 'Número da página'
+            example: 1
+        -
+          in: query
+          name: per_page
+          description: 'Itens por página'
+          example: 1
+          required: false
+          schema:
+            type: integer
+            description: 'Itens por página'
+            example: 1
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data: []
+                  links:
+                    first: 'http://localhost:8083/api/topics/1/messages?page=1'
+                    last: 'http://localhost:8083/api/topics/1/messages?page=1'
+                    prev: null
+                    next: null
+                  meta:
+                    current_page: 1
+                    from: null
+                    last_page: 1
+                    links:
+                      -
+                        url: null
+                        label: '&laquo; Anterior'
+                        active: false
+                      -
+                        url: 'http://localhost:8083/api/topics/1/messages?page=1'
+                        label: '1'
+                        active: true
+                      -
+                        url: null
+                        label: 'Próximo &raquo;'
+                        active: false
+                    path: 'http://localhost:8083/api/topics/1/messages'
+                    per_page: 1
+                    to: null
+                    total: 0
+                properties:
+                  data:
+                    type: array
+                    example: []
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                        example: 'http://localhost:8083/api/topics/1/messages?page=1'
+                      last:
+                        type: string
+                        example: 'http://localhost:8083/api/topics/1/messages?page=1'
+                      prev:
+                        type: string
+                        example: null
+                      next:
+                        type: string
+                        example: null
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        example: 1
+                      from:
+                        type: string
+                        example: null
+                      last_page:
+                        type: integer
+                        example: 1
+                      links:
+                        type: array
+                        example:
+                          -
+                            url: null
+                            label: '&laquo; Anterior'
+                            active: false
+                          -
+                            url: 'http://localhost:8083/api/topics/1/messages?page=1'
+                            label: '1'
+                            active: true
+                          -
+                            url: null
+                            label: 'Próximo &raquo;'
+                            active: false
+                        items:
+                          type: object
+                          properties:
+                            url:
+                              type: string
+                              example: null
+                            label:
+                              type: string
+                              example: '&laquo; Anterior'
+                            active:
+                              type: boolean
+                              example: false
+                      path:
+                        type: string
+                        example: 'http://localhost:8083/api/topics/1/messages'
+                      per_page:
+                        type: integer
+                        example: 1
+                      to:
+                        type: string
+                        example: null
+                      total:
+                        type: integer
+                        example: 0
+      tags:
+        - 'Listas de interesse'
+    post:
+      summary: 'Postar comentário'
+      operationId: postarComentrio
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - 'Listas de interesse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                comment:
+                  type: string
+                  description: 'O campo value não pode ser superior a 255 caracteres.'
+                  example: kbscsqyoyqdqzhzl
+              required:
+                - comment
+    parameters:
+      -
+        in: path
+        name: topic_id
+        description: 'The ID of the topic.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  /api/auth/token:
+    post:
+      summary: 'Gerar um Token'
+      operationId: gerarUmToken
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'O campo value deve ser um endereço de e-mail válido.'
+                  example: bonnie.olson@example.com
+                password:
+                  type: string
+                  description: ''
+                  example: nemo
+                device_name:
+                  type: string
+                  description: ''
+                  example: totam
+              required:
+                - email
+                - password
+                - device_name
+      security: []
+tags:
+  -
+    name: 'Gerenciamento de usuários'
+    description: ''
+  -
+    name: 'Listas de interesse'
+    description: ''
+  -
+    name: Endpoints
+    description: ''
+components:
+  securitySchemes:
+    default:
+      type: http
+      scheme: bearer
+      description: 'You can retrieve your token by visiting your dashboard and clicking <b>Generate API token</b>.'
+security:
+  -
+    default: []
